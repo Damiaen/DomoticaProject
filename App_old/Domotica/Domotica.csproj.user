@@ -3,7 +3,7 @@
   <PropertyGroup>
     <ProjectView>ShowAllFiles</ProjectView>
     <AndroidDesignerPreferredDevice>Nexus 4</AndroidDesignerPreferredDevice>
-    <SelectedDevice>idk</SelectedDevice>
-    <DefaultDevice>idk</DefaultDevice>
+    <SelectedDevice>my_device</SelectedDevice>
+    <DefaultDevice>my_device</DefaultDevice>
   </PropertyGroup>
 </Project>

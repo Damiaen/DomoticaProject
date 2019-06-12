@@ -50,5 +50,57 @@ C:\school\periode 4\project\dwnl code\domoticaT\Domotica\obj\Debug\81\android\as
 C:\school\periode 4\project\dwnl code\domoticaT\Domotica\obj\Debug\81\android\assets\System.ServiceModel.Internals.pdb
 C:\school\periode 4\project\dwnl code\domoticaT\Domotica\obj\Debug\81\android\assets\System.Xml.Linq.pdb
 C:\school\periode 4\project\dwnl code\domoticaT\Domotica\obj\Debug\81\android\assets\System.Xml.pdb
-C:\school\periode 4\project\dwnl code\domoticaT\Domotica\bin\Debug\DomoticaT.dll
-C:\school\periode 4\project\dwnl code\domoticaT\Domotica\obj\Debug\81\linksrc\DomoticaT.dll.mdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\bin\Debug\DomoticaT.dll
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\bin\Debug\DomoticaT.pdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\bin\Debug\Domotica.Domotica.apk
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\bin\Debug\Domotica.Domotica-Signed.apk
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\MonoAndroid,Version=v8.1.AssemblyAttributes.cs
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\Domotica.csprojAssemblyReference.cache
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\libraryimports.cache.stamp
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\res.flag
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\Domotica.csproj.CoreCompileInputs.cache
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\DomoticaT.dll
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\DomoticaT.pdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\android\bin\Domotica.Domotica.apk
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\res\layout\main.xml
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\res\values\strings.xml
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\res\drawable\icon.png
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\res\menu\menu.xml
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\R.cs.flag
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\R.txt
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\uploadflags.txt
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\bin\Debug\Mono.Android.pdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\bin\Debug\Mono.Security.pdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\bin\Debug\mscorlib.pdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\bin\Debug\System.Core.pdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\bin\Debug\System.Net.Http.pdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\bin\Debug\System.pdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\bin\Debug\System.Runtime.Serialization.pdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\bin\Debug\System.ServiceModel.Internals.pdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\bin\Debug\System.Xml.Linq.pdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\bin\Debug\System.Xml.pdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\bin\Debug\DomoticaT.dll.mdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\android\assets\DomoticaT.dll.mdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\android\assets\Mono.Android.pdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\android\assets\Mono.Security.pdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\android\assets\mscorlib.pdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\android\assets\System.Core.pdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\android\assets\System.Net.Http.pdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\android\assets\System.pdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\android\assets\System.Runtime.Serialization.pdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\android\assets\System.ServiceModel.Internals.pdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\android\assets\System.Xml.Linq.pdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\android\assets\System.Xml.pdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\linksrc\DomoticaT.dll.mdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\linksrc\Mono.Android.pdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\linksrc\Mono.Security.pdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\linksrc\mscorlib.pdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\linksrc\System.Core.pdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\linksrc\System.Net.Http.pdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\linksrc\System.pdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\linksrc\System.Runtime.Serialization.pdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\linksrc\System.ServiceModel.Internals.pdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\linksrc\System.Xml.Linq.pdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\linksrc\System.Xml.pdb
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\bin\Debug\DomoticaT.dll
+C:\Users\rickandreae\Desktop\client\domoticaT\Domotica\obj\Debug\81\linksrc\DomoticaT.dll.mdb

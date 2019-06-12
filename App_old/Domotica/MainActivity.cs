@@ -60,8 +60,11 @@ namespace Domotica
         // Controls on GUI
         Button buttonConnect;
         Button buttonChangePinState;
+        Button ChangeKakuStateValue1;
+        Button ChangeKakuStateValue2;
+        Button ChangeKakuStateValue3;
         TextView textViewServerConnect, textViewTimerStateValue;
-        public TextView textViewChangePinStateValue, textViewSensorValue, textViewDebugValue;
+        public TextView textViewChangePinStateValue, textViewSensorValue, textViewDebugValue, textViewChangeKakuStateValue1, textViewChangeKakuStateValue2, textViewChangeKakuStateValue3;
         EditText editTextIPAddress, editTextIPPort;
 
         Timer timerClock, timerSockets;             // Timers   
@@ -80,6 +83,12 @@ namespace Domotica
             // find and set the controls, so it can be used in the code
             buttonConnect = FindViewById<Button>(Resource.Id.buttonConnect);
             buttonChangePinState = FindViewById<Button>(Resource.Id.buttonChangePinState);
+            ChangeKakuStateValue1 = FindViewById<Button>(Resource.Id.ChangeKakuStateValue1);
+            ChangeKakuStateValue2 = FindViewById<Button>(Resource.Id.ChangeKakuStateValue2);
+            ChangeKakuStateValue3 = FindViewById<Button>(Resource.Id.ChangeKakuStateValue3);
+            textViewChangeKakuStateValue1 = FindViewById<TextView>(Resource.Id.textViewChangeKakuStateValue1);
+            textViewChangeKakuStateValue2 = FindViewById<TextView>(Resource.Id.textViewChangeKakuStateValue2);
+            textViewChangeKakuStateValue3 = FindViewById<TextView>(Resource.Id.textViewChangeKakuStateValue3);
             textViewTimerStateValue = FindViewById<TextView>(Resource.Id.textViewTimerStateValue);
             textViewServerConnect = FindViewById<TextView>(Resource.Id.textViewServerConnect);
             textViewChangePinStateValue = FindViewById<TextView>(Resource.Id.textViewChangePinStateValue);
@@ -94,6 +103,9 @@ namespace Domotica
             commandList.Add(new Tuple<string, TextView>("s", textViewChangePinStateValue));
             commandList.Add(new Tuple<string, TextView>("a", textViewSensorValue));
             commandList.Add(new Tuple<string, TextView>("b", textViewDebugValue));
+            commandList.Add(new Tuple<string, TextView>("d", textViewChangeKakuStateValue1));
+            commandList.Add(new Tuple<string, TextView>("f", textViewChangeKakuStateValue2));
+            commandList.Add(new Tuple<string, TextView>("h", textViewChangeKakuStateValue3));
 
             // activation of connector -> threaded sockets otherwise -> simple sockets 
             // connector = new Connector(this);
@@ -109,7 +121,7 @@ namespace Domotica
 
             // timer object, check Arduino state
             // Only one command can be serviced in an timer tick, schedule from list
-            timerSockets = new System.Timers.Timer() { Interval = 1000, Enabled = false }; // Interval >= 750
+            timerSockets = new System.Timers.Timer() { Interval = 500, Enabled = false }; // Interval >= 750
             timerSockets.Elapsed += (obj, args) =>
             {
                 //RunOnUiThread(() =>
@@ -161,6 +173,51 @@ namespace Domotica
                     else // -> threaded sockets
                     {
                         if (connector.CheckStarted()) connector.SendMessage("t");  // Send toggle-command to the Arduino
+                    }
+                };
+            }
+            //Add the "Change pin state" button handler.
+            if (ChangeKakuStateValue1 != null)
+            {
+                ChangeKakuStateValue1.Click += (sender, e) =>
+                {
+                    if (connector == null) // -> simple sockets
+                    {
+                        socket.Send(Encoding.ASCII.GetBytes("c"));                 // Send toggle-command to the Arduino
+                    }
+                    else // -> threaded sockets
+                    {
+                        if (connector.CheckStarted()) connector.SendMessage("c");  // Send toggle-command to the Arduino
+                    }
+                };
+            }
+            //Add the "Change pin state" button handler.
+            if (ChangeKakuStateValue2 != null)
+            {
+                ChangeKakuStateValue2.Click += (sender, e) =>
+                {
+                    if (connector == null) // -> simple sockets
+                    {
+                        socket.Send(Encoding.ASCII.GetBytes("e"));                 // Send toggle-command to the Arduino
+                    }
+                    else // -> threaded sockets
+                    {
+                        if (connector.CheckStarted()) connector.SendMessage("e");  // Send toggle-command to the Arduino
+                    }
+                };
+            }
+            //Add the "Change pin state" button handler.
+            if (ChangeKakuStateValue3 != null)
+            {
+                ChangeKakuStateValue3.Click += (sender, e) =>
+                {
+                    if (connector == null) // -> simple sockets
+                    {
+                        socket.Send(Encoding.ASCII.GetBytes("g"));                 // Send toggle-command to the Arduino
+                    }
+                    else // -> threaded sockets
+                    {
+                        if (connector.CheckStarted()) connector.SendMessage("g");  // Send toggle-command to the Arduino
                     }
                 };
             }

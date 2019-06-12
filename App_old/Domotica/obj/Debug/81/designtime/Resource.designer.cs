@@ -47,8 +47,8 @@ namespace Domotica
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7F020020
-			public const int abort = 2130837536;
+			// aapt resource value: 0x7F020026
+			public const int abort = 2130837542;
 			
 			// aapt resource value: 0x7F020012
 			public const int buttonChangePinState = 2130837522;
@@ -56,17 +56,35 @@ namespace Domotica
 			// aapt resource value: 0x7F020011
 			public const int buttonConnect = 2130837521;
 			
+			// aapt resource value: 0x7F020019
+			public const int ChangeKakuStateValue1 = 2130837529;
+			
+			// aapt resource value: 0x7F020020
+			public const int ChangeKakuStateValue2 = 2130837536;
+			
+			// aapt resource value: 0x7F020021
+			public const int ChangeKakuStateValue3 = 2130837537;
+			
 			// aapt resource value: 0x7F020009
 			public const int editTextIPAddress = 2130837513;
 			
 			// aapt resource value: 0x7F020010
 			public const int editTextIPPort = 2130837520;
 			
-			// aapt resource value: 0x7F020019
-			public const int exit = 2130837529;
+			// aapt resource value: 0x7F020025
+			public const int exit = 2130837541;
 			
 			// aapt resource value: 0x7F020002
 			public const int relativeLayout1 = 2130837506;
+			
+			// aapt resource value: 0x7F020022
+			public const int textViewChangeKakuStateValue1 = 2130837538;
+			
+			// aapt resource value: 0x7F020023
+			public const int textViewChangeKakuStateValue2 = 2130837539;
+			
+			// aapt resource value: 0x7F020024
+			public const int textViewChangeKakuStateValue3 = 2130837540;
 			
 			// aapt resource value: 0x7F020013
 			public const int textViewChangePinState = 2130837523;
@@ -149,8 +167,8 @@ namespace Domotica
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7F050020
-			public const int abort = 2131034144;
+			// aapt resource value: 0x7F050026
+			public const int abort = 2131034150;
 			
 			// aapt resource value: 0x7F050002
 			public const int application_name = 2131034114;
@@ -167,17 +185,35 @@ namespace Domotica
 			// aapt resource value: 0x7F050012
 			public const int button_pin_state_text = 2131034130;
 			
+			// aapt resource value: 0x7F050015
+			public const int change_kaku_state_value_1 = 2131034133;
+			
+			// aapt resource value: 0x7F050016
+			public const int change_kaku_state_value_2 = 2131034134;
+			
+			// aapt resource value: 0x7F050017
+			public const int change_kaku_state_value_3 = 2131034135;
+			
+			// aapt resource value: 0x7F050018
+			public const int change_kaku_text_value_1 = 2131034136;
+			
+			// aapt resource value: 0x7F050019
+			public const int change_kaku_text_value_2 = 2131034137;
+			
+			// aapt resource value: 0x7F050020
+			public const int change_kaku_text_value_3 = 2131034144;
+			
 			// aapt resource value: 0x7F050014
 			public const int change_pin_state_value = 2131034132;
 			
-			// aapt resource value: 0x7F050017
-			public const int debug_text = 2131034135;
+			// aapt resource value: 0x7F050023
+			public const int debug_text = 2131034147;
 			
-			// aapt resource value: 0x7F050018
-			public const int debug_value = 2131034136;
+			// aapt resource value: 0x7F050024
+			public const int debug_value = 2131034148;
 			
-			// aapt resource value: 0x7F050019
-			public const int exit = 2131034137;
+			// aapt resource value: 0x7F050025
+			public const int exit = 2131034149;
 			
 			// aapt resource value: 0x7F050007
 			public const int ip_address_text = 2131034119;
@@ -194,11 +230,11 @@ namespace Domotica
 			// aapt resource value: 0x7F050013
 			public const int pin_state_text = 2131034131;
 			
-			// aapt resource value: 0x7F050015
-			public const int sensor_text = 2131034133;
+			// aapt resource value: 0x7F050021
+			public const int sensor_text = 2131034145;
 			
-			// aapt resource value: 0x7F050016
-			public const int sensor_value = 2131034134;
+			// aapt resource value: 0x7F050022
+			public const int sensor_value = 2131034146;
 			
 			// aapt resource value: 0x7F050003
 			public const int timer_state_text = 2131034115;
