@@ -4,13 +4,13 @@
 #define unitCode 32122670
 
 
-byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };   // Ethernet adapter shield S. Oosterhaven
-IPAddress ip(192, 168, 137, 2);
-int ethPort = 3300;                                  // Take a free port (check your router)
+byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
+IPAddress ip(192, 168, 137, 40);                       // Backup IP when dhcp failes
+int ethPort = 3300;                                    // Take a free port (check your router)
 
 #define RFPin        3  // output, pin to control the RF-sender (and Click-On Click-Off-device)
-#define lowPin       5  // output, always LOW
-#define highPin      6  // output, always HIGH
+#define echoPin      5  // output, always LOW
+#define trigPin      6  // output, always HIGH
 #define switchPin    7  // input, connected to some kind of inputswitch
 #define ledPin       8  // output, led used for "connect state": blinking = searching; continuously = connected
 #define infoPin      9  // output, more information
@@ -19,12 +19,13 @@ int ethPort = 3300;                                  // Take a free port (check 
 EthernetServer server(ethPort);              // EthernetServer instance (listening on port <ethPort>).
 NewRemoteTransmitter apa3Transmitter(unitCode, RFPin, 260, 3);
 
-char actionDevice = 'A';                 // Variable to store Action Device id ('A', 'B', 'C')
 bool pinState = false;                   // Variable to store actual pin state
 bool Kaku_0_State = false;               // Variable to state of KAKU 0
-bool Kaku_0_Change = false;              // Variable to store change of KAKU 0
+bool Kaku_1_State = false;               // Variable to state of KAKU 1
+bool Kaku_2_State = false;               // Variable to state of KAKU 2
 bool pinChange = false;                  // Variable to store actual pin change
 int  sensorValue = 0;                    // Variable to store actual sensor value
+int  ultrasonicValue = 0;                // Variable to store sensor value
 
 void setup()
 {
@@ -33,21 +34,17 @@ void setup()
    
    //Init I/O-pins
    pinMode(switchPin, INPUT);            // hardware switch, for changing pin state
-   pinMode(lowPin, OUTPUT);
-   pinMode(highPin, OUTPUT);
+   pinMode(trigPin, OUTPUT);
+   pinMode(echoPin, INPUT);
    pinMode(RFPin, OUTPUT);
    pinMode(ledPin, OUTPUT);
    pinMode(infoPin, OUTPUT);
    
    //Default states
    digitalWrite(switchPin, HIGH);        // Activate pullup resistors (needed for input pin)
-   digitalWrite(lowPin, LOW);
-   digitalWrite(highPin, HIGH);
    digitalWrite(RFPin, LOW);
    digitalWrite(ledPin, LOW);
    digitalWrite(infoPin, LOW);
-
-//   Ethernet.begin(mac, ip);
 
    //Try to get an IP address from the DHCP server.
    if (Ethernet.begin(mac) == 0)
@@ -59,21 +56,19 @@ void setup()
    
    Serial.print("LED (for connect-state and pin-state) on pin "); Serial.println(ledPin);
    Serial.print("Input switch on pin "); Serial.println(switchPin);
+   Serial.print("Ultrasonic sensor on pins: triggerPin -> "); Serial.print(trigPin); Serial.print(" echoPin -> "); Serial.println(switchPin);
    Serial.println("Ethernetboard connected (pins 10, 11, 12, 13 and SPI)");
    Serial.println("Connect to DHCP source in local network (blinking led -> waiting for connection)");
    
    //Start the ethernet server.
    server.begin();
 
-   // Print IP-address and led indication of server state
-   Serial.print("Listening address: ");
+   // Print IP-address and led indication of server state (show everything related to connection)
+   Serial.print("Server started at: ");
    Serial.print(Ethernet.localIP());
-   
-   // for hardware debug: LED indication of server state: blinking = waiting for connection
-   int IPnr = getIPComputerNumber(Ethernet.localIP());   // Get computernumber in local network 192.168.1.3 -> 3)
-   Serial.print(" ["); Serial.print(IPnr); Serial.print("] "); 
-   Serial.print("  [Testcase: telnet "); Serial.print(Ethernet.localIP()); Serial.print(" "); Serial.print(ethPort); Serial.println("]");
-   signalNumber(ledPin, IPnr);
+   int IPnr = getIPComputerNumber(Ethernet.localIP());
+   Serial.print(" ["); Serial.print(IPnr); Serial.print("] ");
+   Serial.print("  [ Assigned IP: "); Serial.print(Ethernet.localIP()); Serial.print(" Port: "); Serial.print(ethPort); Serial.println("]");
 }
 
 void loop()
@@ -100,14 +95,8 @@ void loop()
          else { digitalWrite(ledPin, LOW); }
          pinChange = false;
       }
-
-      if (Kaku_0_Change) {
-        if (Kaku_0_State) { switchDefault(0, true); }
-        else { switchDefault(0, false); }
-        Kaku_0_State = false;
-      }
    
-      // Execute when byte is received.
+      // Execute when byte/command is received, for example [a].
       while (ethernetClient.available())
       {
          char inByte = ethernetClient.read();   // Get byte from the client.
@@ -145,14 +134,30 @@ void executeCommand(char cmd)
             server.write(buf, 4);                             // response is always 4 chars (\n included)
             Serial.print("Sensor: "); Serial.println(buf);
             break;
-         case 'c': // Toggle KAKU state; If state is already ON then turn it OFF 
-            if (Kaku_0_State) { Kaku_0_State = false; Serial.println("Set KAKU 0 state to \"OFF\""); }
-            else { Kaku_0_State = true; Serial.println("Set KAKU 0 state to \"ON\""); }  
+         case 'c': // Toggle KAKU 0 state; If state is already ON then turn it OFF 
+            if (Kaku_0_State) { Kaku_0_State = false; switchDefault(0, false); Serial.println("Set KAKU 0 state to \"OFF\""); }
+            else { Kaku_0_State = true; switchDefault(0, true); Serial.println("Set KAKU 0 state to \"ON\""); }  
             break;
-         case 'd': // Report status of KAKU 0 to app   
+         case 'd': // Report status of KAKU 0 to app  
             if (Kaku_0_State) { server.write(" ON\n"); Serial.println("KAKU 0 is ON"); }
             else { server.write("OFF\n"); Serial.println("KAKU 0 is OFF"); }
+            break;  
+         case 'e': // Toggle KAKU 1 state; If state is already ON then turn it OFF 
+            if (Kaku_1_State) { Kaku_1_State = false; switchDefault(1, false); Serial.println("Set KAKU 1 state to \"OFF\""); }
+            else { Kaku_1_State = true; switchDefault(1, true); Serial.println("Set KAKU 1 state to \"ON\""); }  
             break;
+         case 'f': // Report status of KAKU 1 to app  
+            if (Kaku_1_State  ) { server.write(" ON\n"); Serial.println("KAKU 1 is ON"); }
+            else { server.write("OFF\n"); Serial.println("KAKU 1 is OFF"); }
+            break;
+         case 'g': // Toggle KAKU 2 state; If state is already ON then turn it OFF 
+            if (Kaku_2_State) { Kaku_2_State = false; switchDefault(2, false); Serial.println("Set KAKU 2 state to \"OFF\""); }
+            else { Kaku_2_State = true; switchDefault(2, true); Serial.println("Set KAKU 2 state to \"ON\""); }  
+            break;
+         case 'h': // Report status of KAKU 2 to app  
+            if (Kaku_2_State) { server.write(" ON\n"); Serial.println("KAKU 2 is ON"); }
+            else { server.write("OFF\n"); Serial.println("KAKU 2 is OFF"); }
+            break;   
          case 's': // Report switch state to the app
             if (pinState) { server.write(" ON\n"); Serial.println("Pin state is ON"); }
             else { server.write("OFF\n"); Serial.println("Pin state is OFF"); }
@@ -162,11 +167,11 @@ void executeCommand(char cmd)
             else { pinState = true; Serial.println("Set pin state to \"ON\""); }  
             pinChange = true; 
             break;
-         case 'i':    
-            digitalWrite(infoPin, HIGH);
+         case 'i':
+            ultrasonic_sensor();
             break;
          default:
-            digitalWrite(infoPin, LOW);
+            Serial.println("No valid command found, disconnecting client");
          }
 }
 
@@ -209,6 +214,35 @@ void checkEvent(int p, bool &state)
          state = false;
          pinChange = true;
       }
+}
+
+void ultrasonic_sensor() {
+      // Variabelen configureren
+    long echo, distanceCm;
+ 
+    // De sensor wordt getriggerd bij 10 us, geef eerst een lage puls om een schone hoge puls te krijgen
+    digitalWrite(trigPin, LOW);
+    delayMicroseconds(2);
+    digitalWrite(trigPin, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(trigPin, LOW);
+ 
+    // Wacht op een hoge puls en meet de tijd
+    echo = pulseIn(echoPin, HIGH);
+    distanceCm = distance(echo);
+    // Print de gegevens naar de seriële monitor
+    Serial.print("afstand in cm: ");
+    Serial.print(distanceCm);
+    Serial.println();
+}
+
+int distance(int echo) {
+    int cm = echo / 29 / 2;
+
+    if (cm < 200) {
+      return cm;
+    }
+    return -1;
 }
 
 // blink led on pin <pn>

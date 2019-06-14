@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domotica.Android", "Domotica\Domotica.Android\Domotica.Android.csproj", "{E214C8D2-3BE4-4940-BA73-786A446D609B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domotica", "Domotica\Domotica\Domotica.csproj", "{CD4BC818-C2A9-4DA8-BD47-1551B4D3CEA6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E214C8D2-3BE4-4940-BA73-786A446D609B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E214C8D2-3BE4-4940-BA73-786A446D609B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E214C8D2-3BE4-4940-BA73-786A446D609B}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{E214C8D2-3BE4-4940-BA73-786A446D609B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E214C8D2-3BE4-4940-BA73-786A446D609B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E214C8D2-3BE4-4940-BA73-786A446D609B}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{CD4BC818-C2A9-4DA8-BD47-1551B4D3CEA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD4BC818-C2A9-4DA8-BD47-1551B4D3CEA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD4BC818-C2A9-4DA8-BD47-1551B4D3CEA6}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{CD4BC818-C2A9-4DA8-BD47-1551B4D3CEA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD4BC818-C2A9-4DA8-BD47-1551B4D3CEA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD4BC818-C2A9-4DA8-BD47-1551B4D3CEA6}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {56D90D5F-A842-461B-8B6E-CAAD174C8A12}
+	EndGlobalSection
+EndGlobal

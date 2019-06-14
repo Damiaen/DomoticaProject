@@ -3,7 +3,7 @@
   <PropertyGroup>
     <ProjectView>ShowAllFiles</ProjectView>
     <AndroidDesignerPreferredDevice>Nexus 4</AndroidDesignerPreferredDevice>
-    <SelectedDevice>my_device</SelectedDevice>
+    <SelectedDevice>HUAWEI VTR-L09</SelectedDevice>
     <DefaultDevice>my_device</DefaultDevice>
   </PropertyGroup>
 </Project>
