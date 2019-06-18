@@ -4,7 +4,7 @@
              x:Class="Domotica.Views.OverviewPage"
              Title="Overzicht">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Settings">
+        <ToolbarItem Text="Settings" Clicked="ToolbarItem_Clicked">
         </ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>

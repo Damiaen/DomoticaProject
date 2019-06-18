@@ -30,5 +30,10 @@ namespace Domotica.Views
         {
             await connection.GetSensorValues();
         }
+
+        async void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new SettingsPage());
+        }
     }
 }

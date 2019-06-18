@@ -800,11 +800,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\SchoolProjects\\Periode4\\Domotica\\Domotica\\Domotica\\Domotica.Android\\Domotica.Android.csproj",
+      "projectUniqueName": "C:\\SchoolProjects\\DomoticaProject\\Domotica\\Domotica\\Domotica.Android\\Domotica.Android.csproj",
       "projectName": "Domotica.Android",
-      "projectPath": "C:\\SchoolProjects\\Periode4\\Domotica\\Domotica\\Domotica\\Domotica.Android\\Domotica.Android.csproj",
+      "projectPath": "C:\\SchoolProjects\\DomoticaProject\\Domotica\\Domotica\\Domotica.Android\\Domotica.Android.csproj",
       "packagesPath": "C:\\Users\\Damiaen\\.nuget\\packages\\",
-      "outputPath": "C:\\SchoolProjects\\Periode4\\Domotica\\Domotica\\Domotica\\Domotica.Android\\obj\\",
+      "outputPath": "C:\\SchoolProjects\\DomoticaProject\\Domotica\\Domotica\\Domotica.Android\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "configFilePaths": [
@@ -821,8 +821,8 @@
       "frameworks": {
         "monoandroid81": {
           "projectReferences": {
-            "C:\\SchoolProjects\\Periode4\\Domotica\\Domotica\\Domotica\\Domotica\\Domotica.csproj": {
-              "projectPath": "C:\\SchoolProjects\\Periode4\\Domotica\\Domotica\\Domotica\\Domotica\\Domotica.csproj"
+            "C:\\SchoolProjects\\DomoticaProject\\Domotica\\Domotica\\Domotica\\Domotica.csproj": {
+              "projectPath": "C:\\SchoolProjects\\DomoticaProject\\Domotica\\Domotica\\Domotica\\Domotica.csproj"
             }
           }
         }

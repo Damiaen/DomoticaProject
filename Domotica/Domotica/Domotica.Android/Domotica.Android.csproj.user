@@ -3,5 +3,6 @@
   <PropertyGroup>
     <SelectedDevice>HUAWEI VTR-L09</SelectedDevice>
     <ProjectView>ShowAllFiles</ProjectView>
+    <AndroidDesignerPreferredDevice>Nexus 4</AndroidDesignerPreferredDevice>
   </PropertyGroup>
 </Project>
