@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:views="clr-namespace:Domotica.Views"
+            x:Class="Domotica.Views.MainPage"
+            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+            android:TabbedPage.ToolbarPlacement="Bottom">
+    <TabbedPage.Children>
+        <NavigationPage Title="Overzicht" Icon="icons_house.png">
+            <x:Arguments>
+                <views:OverviewPage />
+            </x:Arguments>
+        </NavigationPage>
+
+        <NavigationPage Title="Geschiedenis" Icon="icons_time.png">
+            <x:Arguments>
+                <views:HistoryPage />
+            </x:Arguments>
+        </NavigationPage>
+
+        <NavigationPage Title="Info" Icon="icons_info.png">
+            <x:Arguments>
+                <views:InfoPage />
+            </x:Arguments>
+        </NavigationPage>
+    </TabbedPage.Children>
+</TabbedPage>

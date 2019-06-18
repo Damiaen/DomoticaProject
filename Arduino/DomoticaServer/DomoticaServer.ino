@@ -1,3 +1,4 @@
+
 #include <SPI.h>
 #include <Ethernet.h>             
 #include <NewRemoteTransmitter.h> 
@@ -168,7 +169,9 @@ void executeCommand(char cmd)
             pinChange = true; 
             break;
          case 'i':
-            ultrasonic_sensor();
+            intToCharBuf(ultrasonic_sensor(), buf, 4);        // convert to charbuffer
+            server.write(buf, 4);                             // response is always 4 chars (\n included)
+            Serial.print("Sensor: "); Serial.println(buf);
             break;
          default:
             Serial.println("No valid command found, disconnecting client");
@@ -216,7 +219,7 @@ void checkEvent(int p, bool &state)
       }
 }
 
-void ultrasonic_sensor() {
+long ultrasonic_sensor() {
       // Variabelen configureren
     long echo, distanceCm;
  
@@ -230,10 +233,7 @@ void ultrasonic_sensor() {
     // Wacht op een hoge puls en meet de tijd
     echo = pulseIn(echoPin, HIGH);
     distanceCm = distance(echo);
-    // Print de gegevens naar de seriële monitor
-    Serial.print("afstand in cm: ");
-    Serial.print(distanceCm);
-    Serial.println();
+    return distanceCm;
 }
 
 int distance(int echo) {
