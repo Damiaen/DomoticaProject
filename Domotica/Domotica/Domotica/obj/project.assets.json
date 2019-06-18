@@ -343,23 +343,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Damiaen\\.nuget\\packages\\": {},
+    "C:\\Users\\rickandreae\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\SchoolProjects\\DomoticaProject\\Domotica\\Domotica\\Domotica\\Domotica.csproj",
+      "projectUniqueName": "C:\\school\\Domotica\\Domotica\\Domotica\\Domotica.csproj",
       "projectName": "Domotica",
-      "projectPath": "C:\\SchoolProjects\\DomoticaProject\\Domotica\\Domotica\\Domotica\\Domotica.csproj",
-      "packagesPath": "C:\\Users\\Damiaen\\.nuget\\packages\\",
-      "outputPath": "C:\\SchoolProjects\\DomoticaProject\\Domotica\\Domotica\\Domotica\\obj\\",
+      "projectPath": "C:\\school\\Domotica\\Domotica\\Domotica\\Domotica.csproj",
+      "packagesPath": "C:\\Users\\rickandreae\\.nuget\\packages\\",
+      "outputPath": "C:\\school\\Domotica\\Domotica\\Domotica\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Damiaen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\rickandreae\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

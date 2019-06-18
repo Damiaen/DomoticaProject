@@ -35,5 +35,14 @@ namespace Domotica.Views
         {
             await Navigation.PushAsync(new SettingsPage());
         }
+        private async void ThrowFood_Pressed(object sender, EventArgs e)
+        {
+            await connection.SingleAction("i");
+        }
+
+        private async void ThrowFood_Released(object sender, EventArgs e)
+        {
+            await connection.SingleAction("i");
+        }
     }
 }

@@ -12,6 +12,7 @@
             <Label x:Name="DisplaySensorValue" Text="0" FontSize="64" HorizontalOptions="Center"/>
             <Button x:Name="updateSensor" Text="Update one sensor" Clicked="UpdateSensor_Clicked"/>
             <Button x:Name="updateSensors" Text="Update Sensors" Clicked="UpdateSensors_Clicked"/>
+            <Button x:Name="throwFood" Text="Gooi eten" Pressed="ThrowFood_Pressed" Released="ThrowFood_Released"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
