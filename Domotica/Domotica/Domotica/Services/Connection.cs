@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
+using Domotica.Models;
 
 namespace Domotica.Services
 {
@@ -29,6 +30,9 @@ namespace Domotica.Services
         // The response from the remote device.  
         private static String response = String.Empty;
 
+        // Databasemanager to get stored ip configuration from database
+        public DatabaseManager databaseManager = new DatabaseManager();
+
         string[] sensors = new string[] { "a", "a", "a" };
         string[] sensorsValues = new string[3];
         int count = 0;
@@ -40,7 +44,7 @@ namespace Domotica.Services
             try
             {
                 // Establish the remote endpoint for the socket.  
-                IPAddress ipAddress = IPAddress.Parse("192.168.0.101");
+                IPAddress ipAddress = IPAddress.Parse(databaseManager.GetSettings().Ip_config);
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
 
                 // Create a TCP/IP socket.  
@@ -77,7 +81,7 @@ namespace Domotica.Services
             try
             {
                 // Establish the remote endpoint for the socket.  
-                IPAddress ipAddress = IPAddress.Parse("192.168.0.100");
+                IPAddress ipAddress = IPAddress.Parse(databaseManager.GetSettings().Ip_config);
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
 
                 // Create a TCP/IP socket.  

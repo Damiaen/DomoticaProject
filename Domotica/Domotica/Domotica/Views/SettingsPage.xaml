@@ -4,10 +4,12 @@
              x:Class="Domotica.Views.SettingsPage"
              Title="Instellingen">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout VerticalOptions="Center" Margin="32">
+            <Label Text="IP van Arduino"/>
+            <Entry x:Name="IP_Adress"/>
+            
+            <Button Text="Updaten" HorizontalOptions="Center" Padding="2" Margin="0,16,0,0" HeightRequest="32" Clicked="Button_Clicked"/>
         </StackLayout>
+
     </ContentPage.Content>
 </ContentPage>
