@@ -1,11 +1,13 @@
 
 #include <SPI.h>
 #include <Ethernet.h>             
-#include <SD.h>
+#include <NewRemoteTransmitter.h> 
+#define unitCode 32122670
+
 
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
-int ethPort = 3300;                                    // Take a free port (check your router) 
-String fileName = "test.txt";
+IPAddress ip(192, 168, 137, 40);                       // Backup IP when dhcp failes
+int ethPort = 3300;                                    // Take a free port (check your router)
 
 #define RFPin        3  // output, pin to control the RF-sender (and Click-On Click-Off-device)
 #define echoPin      5  // output, always LOW
@@ -14,23 +16,23 @@ String fileName = "test.txt";
 #define ledPin       8  // output, led used for "connect state": blinking = searching; continuously = connected
 #define infoPin      9  // output, more information
 #define analogPin    0  // sensor value
-#define TIME 10000      // Timer for updating food sensor
 
 EthernetServer server(ethPort);              // EthernetServer instance (listening on port <ethPort>).
-File myFile;                                 // SD card file instance
+NewRemoteTransmitter apa3Transmitter(unitCode, RFPin, 260, 3);
 
 bool pinState = false;                   // Variable to store actual pin state
+bool Kaku_0_State = false;               // Variable to state of KAKU 0
+bool Kaku_1_State = false;               // Variable to state of KAKU 1
+bool Kaku_2_State = false;               // Variable to state of KAKU 2
 bool pinChange = false;                  // Variable to store actual pin change
 int  sensorValue = 0;                    // Variable to store actual sensor value
 int  ultrasonicValue = 0;                // Variable to store sensor value
-uint32_t timer;
 
 void setup()
 {
    Serial.begin(9600);
-   while (!Serial) {
-    ; // wait for serial port to connect. Needed for native USB port only
-   }
+   Serial.println("Domotica project, Arduino Domotica Server\n");
+   
    //Init I/O-pins
    pinMode(switchPin, INPUT);            // hardware switch, for changing pin state
    pinMode(trigPin, OUTPUT);
@@ -45,57 +47,49 @@ void setup()
    digitalWrite(ledPin, LOW);
    digitalWrite(infoPin, LOW);
 
-
-  Serial.println(F("Initializing SD card..."));
-  
-  if (!SD.begin(4)) {
-    Serial.println(F("initialization failed!"));
-    while (1);
-  }
-  Serial.println(F("initialization done."));
-  
-  //Try to get an IP address from the DHCP server.
-  if (Ethernet.begin(mac) == 0)
-  {
-    Serial.println(F("Could not obtain IP-address from DHCP -> do nothing"));
-    while (true){     // no point in carrying on, so do nothing forevermore; check your router
-    }
-  }
+   //Try to get an IP address from the DHCP server.
+   if (Ethernet.begin(mac) == 0)
+   {
+      Serial.println("Could not obtain IP-address from DHCP -> do nothing");
+      while (true){     // no point in carrying on, so do nothing forevermore; check your router
+      }
+   }
    
-   Serial.print(F("LED (for connect-state and pin-state) on pin ")); Serial.println(ledPin);
-   Serial.print(F("Input switch on pin ")); Serial.println(switchPin);
-   Serial.print(F("Ultrasonic sensor on pins: triggerPin -> ")); Serial.print(trigPin); Serial.print(F(" echoPin -> ")); Serial.println(switchPin);
-   Serial.println(F("Ethernetboard connected (pins 10, 11, 12, 13 and SPI)"));
-   Serial.println(F("Connect to DHCP source in local network (blinking led -> waiting for connection)"));
+   Serial.print("LED (for connect-state and pin-state) on pin "); Serial.println(ledPin);
+   Serial.print("Input switch on pin "); Serial.println(switchPin);
+   Serial.print("Ultrasonic sensor on pins: triggerPin -> "); Serial.print(trigPin); Serial.print(" echoPin -> "); Serial.println(switchPin);
+   Serial.println("Ethernetboard connected (pins 10, 11, 12, 13 and SPI)");
+   Serial.println("Connect to DHCP source in local network (blinking led -> waiting for connection)");
    
    //Start the ethernet server.
    server.begin();
 
-   // Print ethernet client related info for debugging
-   Serial.print(F("SERVER STARTED AT: ")); Serial.print(F("[IP: ")); Serial.print(Ethernet.localIP()); Serial.print(F(" PORT: ")); Serial.print(ethPort); Serial.println(F("]"));
-   
-   delay(5);
-   timer = millis();
+   // Print IP-address and led indication of server state (show everything related to connection)
+   Serial.print("Server started at: ");
+   Serial.print(Ethernet.localIP());
+   int IPnr = getIPComputerNumber(Ethernet.localIP());
+   Serial.print(" ["); Serial.print(IPnr); Serial.print("] ");
+   Serial.print("  [ Assigned IP: "); Serial.print(Ethernet.localIP()); Serial.print(" Port: "); Serial.print(ethPort); Serial.println("]");
 }
 
 void loop()
 {
-   // Start backgroundtimer for sensor updates
-   backgroundTimer();
-   
    // Listen for incomming connection (app)
    EthernetClient ethernetClient = server.available();
    if (!ethernetClient) {
       blink(ledPin);
       return; // wait for connection and blink LED
    }
-   
+
    Serial.println("Application connected");
    digitalWrite(ledPin, LOW);
 
    // Do what needs to be done while the socket is connected.
    while (ethernetClient.connected()) 
    {
+      checkEvent(switchPin, pinState);          // update pin state
+      sensorValue = readSensor(0, 100);         // update sensor value
+        
       // Activate pin based op pinState
       if (pinChange) {
          if (pinState) { digitalWrite(ledPin, HIGH); }
@@ -112,8 +106,13 @@ void loop()
       } 
    }
    Serial.println("Application disonnected");
+}
 
-
+// Choose and switch your Kaku device, state is true/false (HIGH/LOW)
+void switchDefault(int kakuId, bool state)
+{   
+   apa3Transmitter.sendUnit(kakuId, state);               
+   delay(100);
 }
 
 // Implementation of (simple) protocol between app and Arduino
@@ -137,28 +136,36 @@ void executeCommand(char cmd)
             Serial.print("Sensor: "); Serial.println(buf);
             break;
          case 'c': // Toggle KAKU 0 state; If state is already ON then turn it OFF 
-              storeRfidToDatabase();   
+            if (Kaku_0_State) { Kaku_0_State = false; switchDefault(0, false); Serial.println("Set KAKU 0 state to \"OFF\""); }
+            else { Kaku_0_State = true; switchDefault(0, true); Serial.println("Set KAKU 0 state to \"ON\""); }  
             break;
          case 'd': // Report status of KAKU 0 to app  
-              getRfidFromDatabase();
+            if (Kaku_0_State) { server.write(" ON\n"); Serial.println("KAKU 0 is ON"); }
+            else { server.write("OFF\n"); Serial.println("KAKU 0 is OFF"); }
             break;  
          case 'e': // Toggle KAKU 1 state; If state is already ON then turn it OFF 
-
+            if (Kaku_1_State) { Kaku_1_State = false; switchDefault(1, false); Serial.println("Set KAKU 1 state to \"OFF\""); }
+            else { Kaku_1_State = true; switchDefault(1, true); Serial.println("Set KAKU 1 state to \"ON\""); }  
             break;
          case 'f': // Report status of KAKU 1 to app  
-
+            if (Kaku_1_State  ) { server.write(" ON\n"); Serial.println("KAKU 1 is ON"); }
+            else { server.write("OFF\n"); Serial.println("KAKU 1 is OFF"); }
             break;
          case 'g': // Toggle KAKU 2 state; If state is already ON then turn it OFF 
-
+            if (Kaku_2_State) { Kaku_2_State = false; switchDefault(2, false); Serial.println("Set KAKU 2 state to \"OFF\""); }
+            else { Kaku_2_State = true; switchDefault(2, true); Serial.println("Set KAKU 2 state to \"ON\""); }  
             break;
          case 'h': // Report status of KAKU 2 to app  
-
+            if (Kaku_2_State) { server.write(" ON\n"); Serial.println("KAKU 2 is ON"); }
+            else { server.write("OFF\n"); Serial.println("KAKU 2 is OFF"); }
             break;   
          case 's': // Report switch state to the app
-
+            if (pinState) { server.write(" ON\n"); Serial.println("Pin state is ON"); }
+            else { server.write("OFF\n"); Serial.println("Pin state is OFF"); }
             break;
          case 't': // Toggle state; If state is already ON then turn it OFF
-
+            if (pinState) { pinState = false; Serial.println("Set pin state to \"OFF\""); }
+            else { pinState = true; Serial.println("Set pin state to \"ON\""); }  
             pinChange = true; 
             break;
          case 'i':
@@ -171,57 +178,10 @@ void executeCommand(char cmd)
          }
 }
 
-void backgroundTimer() {
-  if (timer != 0) {
-      if ((millis() - timer) > TIME ) {
-          storeRfidToDatabase();              // Update local storage        
-          checkEvent(switchPin, pinState);    // update pin state
-          sensorValue = readSensor(0, 100);   // update sensor value
-          timer = millis();
-      }
-    }
-}
-
 // read value from pin pn, return value is mapped between 0 and mx-1
 int readSensor(int pn, int mx)
 {
   return map(analogRead(pn), 0, 1023, 0, mx-1);    
-}
-
-void storeRfidToDatabase() {
-  // open the file. note that only one file can be open at a time,
-  // so you have to close this one before opening another.
-  myFile = SD.open(fileName, FILE_WRITE);
-
-  // if the file opened okay, write to it:
-  if (myFile) {
-    Serial.print("Writing to test.txt...");
-    myFile.println("testing 1, 2, 3.");
-    // close the file:
-    myFile.close();
-    Serial.println("done.");
-  } else {
-    // if the file didn't open, print an error:
-    Serial.println("error opening test.txt");
-  }
-}
-
-void getRfidFromDatabase() {
-  // re-open the file for reading:
-  myFile = SD.open(fileName);
-  if (myFile) {
-    Serial.println("test.txt:");
-
-    // read from the file until there's nothing else in it:
-    while (myFile.available()) {
-      Serial.write(myFile.read());
-    }
-    // close the file:
-    myFile.close();
-  } else {
-    // if the file didn't open, print an error:
-    Serial.println("error opening test.txt");
-  }
 }
 
 // Convert int <val> char buffer with length <len>
@@ -305,4 +265,31 @@ void signalNumber(int pin, int n)
    for (i = 0; i < n; i++)
        { digitalWrite(pin, HIGH); delay(300); digitalWrite(pin, LOW); delay(300); }
     delay(1000);
+}
+
+// Convert IPAddress tot String (e.g. "192.168.1.105")
+String IPAddressToString(IPAddress address)
+{
+    return String(address[0]) + "." + 
+           String(address[1]) + "." + 
+           String(address[2]) + "." + 
+           String(address[3]);
+}
+
+// Returns B-class network-id: 192.168.1.3 -> 1)
+int getIPClassB(IPAddress address)
+{
+    return address[2];
+}
+
+// Returns computernumber in local network: 192.168.1.3 -> 3)
+int getIPComputerNumber(IPAddress address)
+{
+    return address[3];
+}
+
+// Returns computernumber in local network: 192.168.1.105 -> 5)
+int getIPComputerNumberOffset(IPAddress address, int offset)
+{
+    return getIPComputerNumber(address) - offset;
 }
