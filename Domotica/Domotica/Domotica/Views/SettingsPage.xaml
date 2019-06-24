@@ -7,6 +7,10 @@
         <StackLayout VerticalOptions="Center" Margin="32">
             <Label Text="IP van Arduino"/>
             <Entry x:Name="IP_Adress"/>
+            <Label Text="Automatisch updaten voederdata"/>
+            <Switch x:Name="Auto_Update" IsToggled="{Binding Auto_update}"></Switch>
+            <Label Text="Opslaan logs op Arduino"/>
+            <Switch x:Name="RFID_Update" IsToggled="{Binding RFID_logs}"></Switch>
             
             <Button Text="Updaten" HorizontalOptions="Center" Padding="2" Margin="0,16,0,0" HeightRequest="32" Clicked="Button_Clicked"/>
         </StackLayout>
