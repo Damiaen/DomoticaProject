@@ -36,7 +36,7 @@ namespace Domotica.Services
         string[] sensors = new string[] { "a", "a", "a" };
         string[] sensorsValues = new string[3];
         int count = 0;
-
+    
 
         public async Task<string> SingleAction(string argument)
         {

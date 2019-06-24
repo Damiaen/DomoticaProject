@@ -24,6 +24,31 @@ namespace Domotica.Services
             Connection.Update(settings);
         }
 
+        public List<Profile> GetAllProfiles()
+        {
+            return Connection.Query<Profile>("SELECT * FROM Profile");
+        }
+
+        public void UpdateProfile(Profile profile)
+        {
+            Connection.Update(profile);
+        }
+
+        public void AddProfile(string ProfileName, int ProfileRFID, string ProfilePortion)
+        {
+            Connection.Insert(new Profile {AnimalName = ProfileName, RFID_id = ProfileRFID, PortionSize = ProfilePortion });
+        }
+
+        public List<Schedule> GetAllSchedules()
+        {
+            return Connection.Query<Schedule>("SELECT * FROM Schedules");
+        }
+
+        public void UpdateSchedule(Schedule schedule)
+        {
+            Connection.Update(schedule);
+        }
+
         //public List<Movie> GetAllMovies()
         //{
         //    return Connection.Query<Movie>("SELECT * FROM Movie");

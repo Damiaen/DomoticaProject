@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Domotica.Views.ProfilePage"
+             Title="Uw planning">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="New profile" Clicked="ToolbarItem_Clicked">
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout Margin="8">
+            <Label Text="Aangemaakte profielen" Font="Large"/>
+            <ListView x:Name="Profiles" RowHeight="64" ItemSelected="Profiles_ItemSelected" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Margin="4">
+                                <Label Text="{Binding AnimalName}" FontSize="16" Margin="8,0"/>
+                                <Label Text="{Binding RFID_id}" FontSize="8" Margin="8,0"/>
+                                <Label Text="{Binding PortionSize}" FontSize="8" Margin="8,0"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -6,21 +6,21 @@
             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
             android:TabbedPage.ToolbarPlacement="Bottom">
     <TabbedPage.Children>
-        <NavigationPage Title="Overzicht" Icon="icons_house.png">
+        <NavigationPage Title="Overzicht" Icon="icon_house.png">
             <x:Arguments>
                 <views:OverviewPage />
             </x:Arguments>
         </NavigationPage>
 
-        <NavigationPage Title="Geschiedenis" Icon="icons_time.png">
+        <NavigationPage Title="Planning" Icon="icon_planner.png">
             <x:Arguments>
-                <views:HistoryPage />
+                <views:ProfilePage />
             </x:Arguments>
         </NavigationPage>
 
-        <NavigationPage Title="Info" Icon="icons_info.png">
+        <NavigationPage Title="Instellingen" Icon="icon_cog.png">
             <x:Arguments>
-                <views:InfoPage />
+                <views:SettingsPage />
             </x:Arguments>
         </NavigationPage>
     </TabbedPage.Children>
