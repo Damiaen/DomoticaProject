@@ -39,14 +39,24 @@ namespace Domotica.Services
             Connection.Insert(new Profile {AnimalName = ProfileName, RFID_id = ProfileRFID, PortionSize = ProfilePortion });
         }
 
-        public List<Schedule> GetAllSchedules()
+        public void AddSchedule(int ProfileId, string scheduleInfo)
         {
-            return Connection.Query<Schedule>("SELECT * FROM Schedules");
+            Connection.Insert(new Schedule { Profile_id = ProfileId, ScheduleInfo = scheduleInfo });
+        }
+
+        public List<Schedule> GetAllSchedulesById(int profileId)
+        {
+            return Connection.Query<Schedule>("SELECT * FROM Schedule WHERE Profile_id = ?", profileId);
         }
 
         public void UpdateSchedule(Schedule schedule)
         {
             Connection.Update(schedule);
+        }
+
+        public void DeleteSchedule(Schedule schedule)
+        {
+            Connection.Delete(schedule);
         }
 
         //public List<Movie> GetAllMovies()

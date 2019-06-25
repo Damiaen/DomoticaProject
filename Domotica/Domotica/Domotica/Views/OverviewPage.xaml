@@ -6,8 +6,9 @@
     <ContentPage.Content>
         <StackLayout Margin="16" VerticalOptions="Center">
             <Label x:Name="DisplaySensorValue" Text="0" FontSize="64" HorizontalOptions="Center"/>
-            <Button x:Name="updateSensor" Text="Update one sensor" Clicked="UpdateSensor_Clicked"/>
-            <Button x:Name="updateSensors" Text="Update Sensors" Clicked="UpdateSensors_Clicked"/>
+            <Slider x:Name="Interval" ValueChanged="Interval_ValueChanged" Maximum="100"/>
+            <Label x:Name="DisplayInterval" Text="0" FontSize="64" HorizontalOptions="Center"/>
+            <Button x:Name="SendInterval" Text="Geef portie" Clicked="SendInterval_Clicked"/>
             <Button x:Name="throwFood" Text="Gooi eten" Pressed="ThrowFood_Pressed" Released="ThrowFood_Released"/>
         </StackLayout>
     </ContentPage.Content>

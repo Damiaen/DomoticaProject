@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Domotica.Views.ProfileFeedtimesAddPage"
+             Title="Voeg een tijd toe">
+    <ContentPage.Content>
+        <StackLayout>
+            <ScrollView>
+                <StackLayout Orientation="Vertical">
+                    <Label Text="Info"/>
+                    <Entry x:Name="scheduleInfo"/>
+                    <Button Text="Add" HorizontalOptions="Center" Padding="2" Margin="0,16,0,0" WidthRequest="96" HeightRequest="32" Clicked="Button_Clicked"/>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

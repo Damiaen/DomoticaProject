@@ -16,13 +16,39 @@ namespace Domotica.Views
 	public partial class ProfileDetails : ContentPage
 	{
         Profile profileDetails;
+
         DatabaseManager databaseManager = new DatabaseManager();
 
         public ProfileDetails (Profile selectedProfile)
 		{
             InitializeComponent ();
-            profileDetails = selectedProfile;
 
+            profileDetails = selectedProfile;
+            profileDetailsRFID.Text = profileDetails.RFID_id.ToString();
+            profileDetailsAnimalName.Text = profileDetails.AnimalName;
+            profileDetailsPortionSize.Text = profileDetails.PortionSize;
+            ProfileDetailsTitle.Text = "Profielinformatie van " + profileDetails.AnimalName; ;
+
+            SchedulesTitle.Text = "Voedertijden van " + profileDetails.AnimalName;
+            SchedulesList.ItemsSource = databaseManager.GetAllSchedulesById(profileDetails.Profile_id);
+
+        }
+
+        private async void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new ProfileFeedtimesAddPage(profileDetails));
+        }
+
+        private async void SchedulesList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem == null) return;
+            Schedule selectedSchedule = e.SelectedItem as Schedule;
+            if (selectedSchedule == null) return;
+
+            await Navigation.PushAsync(new ProfileFeedtimesEditPage(selectedSchedule));
+
+            // We deselect the item so that the background is not greyed when we come back
+            SchedulesList.SelectedItem = null;
         }
     }
 }

@@ -16,8 +16,6 @@ namespace Domotica.Views
 	{
         DatabaseManager databaseManager = new DatabaseManager();
 
-        Profile newProfile;
-
         public ProfileAddPage ()
 		{
 			InitializeComponent ();
