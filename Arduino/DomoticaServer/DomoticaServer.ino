@@ -1,7 +1,8 @@
-
 #include <SPI.h>
 #include <Ethernet.h>             
 #include <SD.h>
+#include <Servo.h>
+#include <Wire.h>
 
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 int ethPort = 3300;                                    // Take a free port (check your router) 
@@ -12,18 +13,20 @@ String fileName = "test.txt";
 #define trigPin      6  // output, always HIGH
 #define switchPin    7  // input, connected to some kind of inputswitch
 #define ledPin       8  // output, led used for "connect state": blinking = searching; continuously = connected
-#define infoPin      9  // output, more information
+#define servoPin     9  // output, more information
 #define analogPin    0  // sensor value
 #define TIME 10000      // Timer for updating food sensor
 
 EthernetServer server(ethPort);              // EthernetServer instance (listening on port <ethPort>).
 File myFile;                                 // SD card file instance
+Servo servo;
 
 bool pinState = false;                   // Variable to store actual pin state
 bool pinChange = false;                  // Variable to store actual pin change
 int  sensorValue = 0;                    // Variable to store actual sensor value
 int  ultrasonicValue = 0;                // Variable to store sensor value
 uint32_t timer;
+String bytes;
 
 void setup()
 {
@@ -37,13 +40,11 @@ void setup()
    pinMode(echoPin, INPUT);
    pinMode(RFPin, OUTPUT);
    pinMode(ledPin, OUTPUT);
-   pinMode(infoPin, OUTPUT);
-   
+      
    //Default states
    digitalWrite(switchPin, HIGH);        // Activate pullup resistors (needed for input pin)
    digitalWrite(RFPin, LOW);
    digitalWrite(ledPin, LOW);
-   digitalWrite(infoPin, LOW);
 
 
   Serial.println(F("Initializing SD card..."));
@@ -74,8 +75,14 @@ void setup()
    // Print ethernet client related info for debugging
    Serial.print(F("SERVER STARTED AT: ")); Serial.print(F("[IP: ")); Serial.print(Ethernet.localIP()); Serial.print(F(" PORT: ")); Serial.print(ethPort); Serial.println(F("]"));
    
+   Wire.begin(8);                // join i2c bus with address #8
+   Wire.onReceive(receiveEvent); // register event
+   
    delay(5);
    timer = millis();
+
+   servo.attach(servoPin);
+   servo.write(1);
 }
 
 void loop()
@@ -106,9 +113,26 @@ void loop()
       // Execute when byte/command is received, for example [a].
       while (ethernetClient.available())
       {
-         char inByte = ethernetClient.read();   // Get byte from the client.
-         executeCommand(inByte);                // Wait for command to execute
-         inByte = NULL;                         // Reset the read byte.
+//         char inByte = ethernetClient.read();   // Get byte from the client.
+//         executeCommand(inByte);                // Wait for command to execute
+//         inByte = NULL;                         // Reset the read byte.
+
+         bytes = ethernetClient.readString();
+         unsigned int lastStringLength = bytes.length();    
+         Serial.println(lastStringLength);
+         
+         if(lastStringLength == 1){
+          char inByte = bytes[0];
+          Serial.println(inByte);
+          executeCommand(inByte);                // Wait for command to execute
+          inByte = NULL;                         // Reset the read byte.
+         } else {
+          float rotationTimeInSeconds;
+          rotationTimeInSeconds = atof(bytes.c_str());
+          Serial.println(rotationTimeInSeconds);
+          Serial.println(bytes);
+          moveServo(rotationTimeInSeconds);
+         }
       } 
    }
    Serial.println("Application disonnected");
@@ -143,7 +167,7 @@ void executeCommand(char cmd)
               getRfidFromDatabase();
             break;  
          case 'e': // Toggle KAKU 1 state; If state is already ON then turn it OFF 
-
+              moveServo(2);
             break;
          case 'f': // Report status of KAKU 1 to app  
 
@@ -162,12 +186,9 @@ void executeCommand(char cmd)
             pinChange = true; 
             break;
          case 'i':
-            intToCharBuf(ultrasonic_sensor(), buf, 4);        // convert to charbuffer
-            server.write(buf, 4);                             // response is always 4 chars (\n included)
-            Serial.print("Sensor: "); Serial.println(buf);
             break;
          default:
-            Serial.println("No valid command found, disconnecting client");
+            Serial.println(F("No valid command found, disconnecting client"));
          }
 }
 
@@ -195,14 +216,14 @@ void storeRfidToDatabase() {
 
   // if the file opened okay, write to it:
   if (myFile) {
-    Serial.print("Writing to test.txt...");
-    myFile.println("testing 1, 2, 3.");
+    Serial.print(F("Writing to test.txt..."));
+    myFile.println(F("testing 1, 2, 3."));
     // close the file:
     myFile.close();
-    Serial.println("done.");
+    Serial.println(F("done."));
   } else {
     // if the file didn't open, print an error:
-    Serial.println("error opening test.txt");
+    Serial.println(F("error opening test.txt"));
   }
 }
 
@@ -210,7 +231,7 @@ void getRfidFromDatabase() {
   // re-open the file for reading:
   myFile = SD.open(fileName);
   if (myFile) {
-    Serial.println("test.txt:");
+    Serial.println(F("test.txt:"));
 
     // read from the file until there's nothing else in it:
     while (myFile.available()) {
@@ -259,32 +280,6 @@ void checkEvent(int p, bool &state)
       }
 }
 
-long ultrasonic_sensor() {
-      // Variabelen configureren
-    long echo, distanceCm;
- 
-    // De sensor wordt getriggerd bij 10 us, geef eerst een lage puls om een schone hoge puls te krijgen
-    digitalWrite(trigPin, LOW);
-    delayMicroseconds(2);
-    digitalWrite(trigPin, HIGH);
-    delayMicroseconds(10);
-    digitalWrite(trigPin, LOW);
- 
-    // Wacht op een hoge puls en meet de tijd
-    echo = pulseIn(echoPin, HIGH);
-    distanceCm = distance(echo);
-    return distanceCm;
-}
-
-int distance(int echo) {
-    int cm = echo / 29 / 2;
-
-    if (cm < 200) {
-      return cm;
-    }
-    return -1;
-}
-
 // blink led on pin <pn>
 void blink(int pn)
 {
@@ -305,4 +300,31 @@ void signalNumber(int pin, int n)
    for (i = 0; i < n; i++)
        { digitalWrite(pin, HIGH); delay(300); digitalWrite(pin, LOW); delay(300); }
     delay(1000);
+}
+
+void moveServo(int anmount) {
+
+  for (int portions = 0; portions < anmount; portions++) {
+      servo.write(180);
+      delay(2000);
+      servo.write(1);
+      delay(1000);
+        for(int i = 0; i < 5; i++){    
+          servo.write(1);
+          delay(250);
+          servo.write(20);
+          delay(250);
+      }
+  } 
+}
+
+// function that executes whenever data is received from master
+// this function is registered as an event, see setup()
+void receiveEvent(int howMany) {
+  while (1 < Wire.available()) { // loop through all but the last
+    char c = Wire.read(); // receive byte as a character
+    Serial.print(c);         // print the character
+  }
+  int x = Wire.read();    // receive byte as an integer
+  Serial.println(x);         // print the integer
 }
