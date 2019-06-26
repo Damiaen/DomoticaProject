@@ -19,7 +19,7 @@ namespace Domotica.Views
         public OverviewPage()
         {
             InitializeComponent();
-            UpdateSensor();
+            // UpdateSensor();
 
         }
 

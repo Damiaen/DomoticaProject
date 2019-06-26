@@ -22,7 +22,10 @@ namespace Domotica.Views
 		{
 			InitializeComponent ();
             schedule = selectedSchedule;
-            ScheduleInfoEdit.Text = schedule.ScheduleInfo;
+            scheduleDescription.Text = schedule.Description;
+            DatePickerFeedTimes.Date = DateTime.Parse(schedule.FeedDate);
+            timePicker.Time = TimeSpan.Parse(schedule.FeedTime);
+            schedulePortionSize.Text = schedule.PortionSize.ToString();
 
         }
 
@@ -34,7 +37,11 @@ namespace Domotica.Views
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            schedule.ScheduleInfo = ScheduleInfoEdit.Text;
+            schedule.Description = scheduleDescription.Text;
+            schedule.FeedTime = DatePickerFeedTimes.Date.ToString("dd/MM/yyyy");
+            schedule.FeedTime = timePicker.Time.ToString();
+            schedule.PortionSize = Convert.ToInt32(schedulePortionSize.Text);
+
             databaseManager.UpdateSchedule(schedule);
             await Navigation.PopToRootAsync();
         }

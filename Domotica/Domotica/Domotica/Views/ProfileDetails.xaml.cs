@@ -24,13 +24,14 @@ namespace Domotica.Views
             InitializeComponent ();
 
             profileDetails = selectedProfile;
-            profileDetailsRFID.Text = profileDetails.RFID_id.ToString();
+            profileDetailsRFID.Text = profileDetails.RFID.ToString();
             profileDetailsAnimalName.Text = profileDetails.AnimalName;
-            profileDetailsPortionSize.Text = profileDetails.PortionSize;
+            profileDetailsAnimalType.Text = profileDetails.AnimalType;
+            profileDetailsPortionSize.Text = profileDetails.DefaultPortionSize.ToString();
             ProfileDetailsTitle.Text = "Profielinformatie van " + profileDetails.AnimalName; ;
 
             SchedulesTitle.Text = "Voedertijden van " + profileDetails.AnimalName;
-            SchedulesList.ItemsSource = databaseManager.GetAllSchedulesById(profileDetails.Profile_id);
+            SchedulesList.ItemsSource = databaseManager.GetAllSchedulesById(profileDetails.Id);
 
         }
 

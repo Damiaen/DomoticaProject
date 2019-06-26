@@ -23,15 +23,15 @@ namespace Domotica.Views
 			InitializeComponent ();
             storedSettings = databaseManager.GetSettings();
             IP_Adress.Text = storedSettings.Ip_config;
-            Auto_Update.IsToggled = Convert.ToBoolean(storedSettings.Auto_update);
-            RFID_Update.IsToggled = Convert.ToBoolean(storedSettings.RFID_logs);
+            AutoUpdateSensors.IsToggled = Convert.ToBoolean(storedSettings.Auto_update);
+            LogUsageRFID.IsToggled = Convert.ToBoolean(storedSettings.RFID_logs);
         }
 
         private void Button_Clicked(object sender, EventArgs e)
         {
             storedSettings.Ip_config = IP_Adress.Text;
-            storedSettings.Auto_update = Convert.ToInt32(Auto_Update.IsToggled);
-            storedSettings.RFID_logs = Convert.ToInt32(RFID_Update.IsToggled);
+            storedSettings.Auto_update = Convert.ToInt32(AutoUpdateSensors.IsToggled);
+            storedSettings.RFID_logs = Convert.ToInt32(LogUsageRFID.IsToggled);
             databaseManager.UpdateSettings(storedSettings);
         }
     }

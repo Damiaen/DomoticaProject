@@ -23,7 +23,7 @@ namespace Domotica.Views
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            databaseManager.AddProfile(ProfileName.Text, Convert.ToInt32(ProfileRFID.Text), ProfilePortion.Text);
+            databaseManager.AddProfile(ProfileName.Text, Convert.ToInt32(ProfileRFID.Text), Convert.ToInt32(ProfilePortion.Text), AnimalType.Text);
             await Navigation.PopToRootAsync();
         }
     }

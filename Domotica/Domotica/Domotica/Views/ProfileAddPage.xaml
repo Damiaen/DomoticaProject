@@ -4,15 +4,18 @@
              x:Class="Domotica.Views.ProfileAddPage"
              Title="Voeg Profiel toe">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Margin="16">
             <ScrollView>
                 <StackLayout Orientation="Vertical">
                     <Label Text="Naam"/>
                     <Entry x:Name="ProfileName"/>
-                    <Label Text="RFID (als van toepassing is)"/>
+                    <Label Text="Type dier (Optioneel)"/>
+                    <Entry x:Name="AnimalType"/>   
+                    <Label Text="RFID (optioneel)"/>
                     <Entry x:Name="ProfileRFID"/>
-                    <Label Text="Hoeveelheid"/>
+                    <Label Text="Standaard portiegrootte"/>
                     <Entry x:Name="ProfilePortion"/>
+
                     <Button Text="Add" HorizontalOptions="Center" Padding="2" Margin="0,16,0,0" WidthRequest="96" HeightRequest="32" Clicked="Button_Clicked"/>
                 </StackLayout>
             </ScrollView>

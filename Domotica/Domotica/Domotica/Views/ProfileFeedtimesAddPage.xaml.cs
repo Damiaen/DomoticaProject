@@ -26,7 +26,8 @@ namespace Domotica.Views
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            databaseManager.AddSchedule(profile.Profile_id, scheduleInfo.Text);
+
+            databaseManager.AddSchedule(profile.Id, scheduleDescription.Text, Convert.ToInt32(schedulePortionSize.Text), DatePickerFeedTimes.Date.ToString("dd/MM/yyyy"), timePicker.Time.ToString());
             await Navigation.PopToRootAsync();
         }
     }

@@ -4,15 +4,26 @@
              x:Class="Domotica.Views.SettingsPage"
              Title="Instellingen">
     <ContentPage.Content>
-        <StackLayout VerticalOptions="Center" Margin="32">
-            <Label Text="IP van Arduino"/>
+        <StackLayout VerticalOptions="Center" Margin="16">
+            <Label Text="IP van de Arduino voeder"/>
             <Entry x:Name="IP_Adress"/>
-            <Label Text="Automatisch updaten voederdata"/>
-            <Switch x:Name="Auto_Update" IsToggled="{Binding Auto_update}"></Switch>
-            <Label Text="Opslaan logs op Arduino"/>
-            <Switch x:Name="RFID_Update" IsToggled="{Binding RFID_logs}"></Switch>
+
+            <Grid VerticalOptions="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                
+                <Label VerticalTextAlignment="Center" Grid.Row="0" Grid.Column="0" Text="Automatisch updaten voederdata" />
+                <Switch Grid.Row="0" Grid.Column="1" IsToggled="{Binding Auto_update}" VerticalOptions="Center" x:Name="AutoUpdateSensors"/>
+                <Label VerticalTextAlignment="Center" Grid.Row="1" Grid.Column="0" Text="Meldingen weergeven" />
+                <Switch Grid.Row="1" Grid.Column="1" VerticalOptions="Center" x:Name="SendNotifications"/>
+                <Label VerticalTextAlignment="Center" Grid.Row="2" Grid.Column="0" Text="Opslaan logs op Arduino" />
+                <Switch Grid.Row="2" Grid.Column="1" IsToggled="{Binding RFID_logs}" VerticalOptions="Center" x:Name="LogUsageRFID"/>
+                
+            </Grid>
             
-            <Button Text="Updaten" HorizontalOptions="Center" Padding="2" Margin="0,16,0,0" HeightRequest="32" Clicked="Button_Clicked"/>
+            <Button Text="Updaten" HorizontalOptions="Center" Padding="2" Margin="0,16,0,0" HeightRequest="48" Clicked="Button_Clicked"/>
+
         </StackLayout>
 
     </ContentPage.Content>

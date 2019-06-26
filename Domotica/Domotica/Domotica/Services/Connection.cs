@@ -81,7 +81,7 @@ namespace Domotica.Services
             try
             {
                 // Establish the remote endpoint for the socket.  
-                IPAddress ipAddress = IPAddress.Parse("192.168.0.101");
+                IPAddress ipAddress = IPAddress.Parse(databaseManager.GetSettings().Ip_config);
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
 
                 // Create a TCP/IP socket.  

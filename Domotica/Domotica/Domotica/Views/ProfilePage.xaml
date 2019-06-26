@@ -8,7 +8,7 @@
         </ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout Margin="8">
+        <StackLayout Margin="16">
             <Label Text="Aangemaakte profielen" Font="Large"/>
             <ListView x:Name="Profiles" RowHeight="64" ItemSelected="Profiles_ItemSelected" >
                 <ListView.ItemTemplate>
@@ -16,8 +16,9 @@
                         <ViewCell>
                             <StackLayout Margin="4">
                                 <Label Text="{Binding AnimalName}" FontSize="16" Margin="8,0"/>
-                                <Label Text="{Binding RFID_id}" FontSize="8" Margin="8,0"/>
-                                <Label Text="{Binding PortionSize}" FontSize="8" Margin="8,0"/>
+                                <Label Text="{Binding AnimalType}" FontSize="16" Margin="8,0"/>
+                                <Label Text="{Binding RFID}" FontSize="8" Margin="8,0"/>
+                                <Label Text="{Binding DefaultPortionSize}" FontSize="8" Margin="8,0"/>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

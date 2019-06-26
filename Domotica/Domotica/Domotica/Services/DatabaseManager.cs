@@ -34,19 +34,24 @@ namespace Domotica.Services
             Connection.Update(profile);
         }
 
-        public void AddProfile(string ProfileName, int ProfileRFID, string ProfilePortion)
+        public void AddProfile(string ProfileName, int ProfileRFID, int defaultportionsize, string AnimalType)
         {
-            Connection.Insert(new Profile {AnimalName = ProfileName, RFID_id = ProfileRFID, PortionSize = ProfilePortion });
+            Connection.Insert(new Profile {AnimalName = ProfileName, RFID = ProfileRFID, DefaultPortionSize = defaultportionsize, AnimalType = AnimalType });
         }
 
-        public void AddSchedule(int ProfileId, string scheduleInfo)
+        public void AddSchedule(int profileId, string description, int portionsize, string feeddate, string feedtime)
         {
-            Connection.Insert(new Schedule { Profile_id = ProfileId, ScheduleInfo = scheduleInfo });
+            Connection.Insert(new Schedule { ProfileId = profileId, Description = description, PortionSize = portionsize, FeedDate = feeddate, FeedTime = feedtime, Expired = 0 });
         }
 
         public List<Schedule> GetAllSchedulesById(int profileId)
         {
-            return Connection.Query<Schedule>("SELECT * FROM Schedule WHERE Profile_id = ?", profileId);
+            return Connection.Query<Schedule>("SELECT * FROM Schedule WHERE ProfileId = ?", profileId);
+        }
+
+        public List<Schedule> GetAllNonExpiredSchedules(string currentDate)
+        {
+            return Connection.Query<Schedule>("SELECT * FROM Schedule WHERE Expired = 0");
         }
 
         public void UpdateSchedule(Schedule schedule)

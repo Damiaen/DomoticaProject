@@ -8,11 +8,20 @@
         </ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Margin="16">
             <ScrollView>
                 <StackLayout Orientation="Vertical">
-                    <Label Text="Informatie"/>
-                    <Entry x:Name="ScheduleInfoEdit"/>
+                    <Label Text="Omschrijving (Optioneel)"/>
+                    <Entry x:Name="scheduleDescription"/>
+                    <Label Text="Portiegrootte (Indien anders dan standaard)"/>
+                    <Entry x:Name="schedulePortionSize"/>
+                    <Label Text="Datum voor voer"/>
+                    <DatePicker x:Name="DatePickerFeedTimes"
+                                Format="D"/>
+                    <Label Text="Voertijd"/>
+                    <TimePicker x:Name="timePicker"
+                                Time="12:00"
+                                Format="hh:mm"/>
                     <Button Text="Add" HorizontalOptions="Center" Padding="2" Margin="0,16,0,0" WidthRequest="96" HeightRequest="32" Clicked="Button_Clicked"/>
                 </StackLayout>
             </ScrollView>

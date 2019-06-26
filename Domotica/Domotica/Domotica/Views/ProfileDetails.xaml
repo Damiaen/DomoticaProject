@@ -8,15 +8,16 @@
         </ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout Margin="8">
+        <StackLayout Margin="16">
             
             <StackLayout>
                 <Label x:Name="ProfileDetailsTitle" Font="Large"/>
 
                 <StackLayout Margin="4" x:Name="profileDetailsList">
                     <Label x:Name="profileDetailsAnimalName" FontSize="16" Margin="8,0"/>
-                    <Label x:Name="profileDetailsRFID" Text="{Binding RFID_id}" FontSize="8" Margin="8,0"/>
-                    <Label x:Name="profileDetailsPortionSize" Text="{Binding PortionSize}" FontSize="8" Margin="8,0"/>
+                    <Label x:Name="profileDetailsAnimalType" FontSize="16" Margin="8,0"/>
+                    <Label x:Name="profileDetailsRFID" FontSize="8" Margin="8,0"/>
+                    <Label x:Name="profileDetailsPortionSize" FontSize="8" Margin="8,0"/>
                 </StackLayout>
             </StackLayout>
             
@@ -27,7 +28,10 @@
                         <DataTemplate>
                             <ViewCell>
                                 <StackLayout Margin="4">
-                                    <Label Text="{Binding ScheduleInfo}" FontSize="16" Margin="8,0"/>
+                                    <Label Text="{Binding FeedDate}" FontSize="16" Margin="8,0"/>
+                                    <Label Text="{Binding FeedTime}" FontSize="16" Margin="8,0"/>
+                                    <Label Text="{Binding Description}" FontSize="16" Margin="8,0"/>
+                                    <Label Text="{Binding PortionSize}" FontSize="16" Margin="8,0"/>
                                 </StackLayout>
                             </ViewCell>
                         </DataTemplate>
