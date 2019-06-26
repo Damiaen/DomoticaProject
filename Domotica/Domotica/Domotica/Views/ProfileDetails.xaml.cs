@@ -37,7 +37,7 @@ namespace Domotica.Views
 
         private async void ToolbarItem_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new ProfileFeedtimesAddPage(profileDetails));
+            await Navigation.PushAsync(new ProfileEditPagexaml(profileDetails));
         }
 
         private async void SchedulesList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -50,6 +50,11 @@ namespace Domotica.Views
 
             // We deselect the item so that the background is not greyed when we come back
             SchedulesList.SelectedItem = null;
+        }
+
+        private async void Add_time_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new ProfileFeedtimesAddPage(profileDetails));
         }
     }
 }

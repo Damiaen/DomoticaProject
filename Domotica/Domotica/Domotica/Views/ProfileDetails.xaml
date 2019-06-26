@@ -2,9 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Domotica.Views.ProfileDetails"
-             Title="Profiel details">
+             Title="Details">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Voeg toe" Clicked="ToolbarItem_Clicked">
+        <ToolbarItem Text="Bewerk" Clicked="ToolbarItem_Clicked">
         </ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
@@ -14,10 +14,10 @@
                 <Label x:Name="ProfileDetailsTitle" Font="Large"/>
 
                 <StackLayout Margin="4" x:Name="profileDetailsList">
-                    <Label x:Name="profileDetailsAnimalName" FontSize="16" Margin="8,0"/>
-                    <Label x:Name="profileDetailsAnimalType" FontSize="16" Margin="8,0"/>
-                    <Label x:Name="profileDetailsRFID" FontSize="8" Margin="8,0"/>
-                    <Label x:Name="profileDetailsPortionSize" FontSize="8" Margin="8,0"/>
+                    <Label x:Name="profileDetailsAnimalName" FontSize="16" Margin="6,0"/>
+                    <Label x:Name="profileDetailsAnimalType" FontSize="16" Margin="6,0"/>
+                    <Label x:Name="profileDetailsRFID" FontSize="16" Margin="6,0" />
+                    <Label x:Name="profileDetailsPortionSize" FontSize="16" Margin="6,0"/>
                 </StackLayout>
             </StackLayout>
             
@@ -28,10 +28,10 @@
                         <DataTemplate>
                             <ViewCell>
                                 <StackLayout Margin="4">
-                                    <Label Text="{Binding FeedDate}" FontSize="16" Margin="8,0"/>
-                                    <Label Text="{Binding FeedTime}" FontSize="16" Margin="8,0"/>
-                                    <Label Text="{Binding Description}" FontSize="16" Margin="8,0"/>
-                                    <Label Text="{Binding PortionSize}" FontSize="16" Margin="8,0"/>
+                                    <Label Text="{Binding FeedDate}" FontSize="16" Margin="6,0"/>
+                                    <Label Text="{Binding FeedTime}" FontSize="16" Margin="6,0"/>
+                                    <Label Text="{Binding Description}" FontSize="16" Margin="6,0"/>
+                                    <Label Text="{Binding PortionSize}" FontSize="16" Margin="6,0"/>
                                 </StackLayout>
                             </ViewCell>
                         </DataTemplate>
@@ -39,6 +39,8 @@
                 </ListView>
             </StackLayout>
             
+            <Button x:Name="add_time" Text="Voeg tijd toe" Clicked="Add_time_Clicked"/>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
