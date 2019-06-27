@@ -37,13 +37,33 @@ namespace Domotica.Views
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            schedule.Description = scheduleDescription.Text;
-            schedule.FeedTime = DatePickerFeedTimes.Date.ToString("dd/MM/yyyy");
-            schedule.FeedTime = timePicker.Time.ToString();
-            schedule.PortionSize = Convert.ToInt32(schedulePortionSize.Text);
+            if (String.IsNullOrEmpty(scheduleDescription.Text))
+            {
+                scheduleDescription.Text = "Voederdatum";
+            }
+            else if (String.IsNullOrEmpty(schedulePortionSize.Text))
+            {
+                schedulePortionSize.Text = schedule.PortionSize.ToString();
+            }
+            else if (DatePickerFeedTimes.Date == null)
+            {
+                await DisplayAlert("Leeg veld", "Voer een voerdatum in", "OK");
+            }
+            else if (timePicker.Time == null)
+            {
+                await DisplayAlert("Leeg veld", "Voer een voertijd in", "OK");
+            }
+            else
+            {
+                schedule.Description = scheduleDescription.Text;
+                schedule.FeedTime = DatePickerFeedTimes.Date.ToString("dd/MM/yyyy");
+                schedule.FeedTime = timePicker.Time.ToString();
+                schedule.PortionSize = Convert.ToInt32(schedulePortionSize.Text);
 
-            databaseManager.UpdateSchedule(schedule);
-            await Navigation.PopToRootAsync();
+                databaseManager.UpdateSchedule(schedule);
+                await Navigation.PopToRootAsync();
+            }
+
         }
     }
 }

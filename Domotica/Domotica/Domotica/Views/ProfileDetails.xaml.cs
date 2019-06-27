@@ -24,11 +24,10 @@ namespace Domotica.Views
             InitializeComponent ();
 
             profileDetails = selectedProfile;
-            profileDetailsRFID.Text = profileDetails.RFID.ToString();
-            profileDetailsAnimalName.Text = profileDetails.AnimalName;
-            profileDetailsAnimalType.Text = profileDetails.AnimalType;
-            profileDetailsPortionSize.Text = profileDetails.DefaultPortionSize.ToString();
-            ProfileDetailsTitle.Text = "Profielinformatie van " + profileDetails.AnimalName; ;
+            profileDetailsRFID.Text = "RFID Code: " + profileDetails.RFID.ToString();
+            profileDetailsAnimalName.Text = "Naam: " + profileDetails.AnimalName;
+            profileDetailsAnimalType.Text = "Type: " + profileDetails.AnimalType;
+            profileDetailsPortionSize.Text = "Standaard portie: " + profileDetails.DefaultPortionSize.ToString();
 
             SchedulesTitle.Text = "Voedertijden van " + profileDetails.AnimalName;
             SchedulesList.ItemsSource = databaseManager.GetAllSchedulesById(profileDetails.Id);

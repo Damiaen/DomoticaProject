@@ -25,19 +25,45 @@ namespace Domotica.Views
 
             EditProfileName.Text = profile.AnimalName;
             EditAnimalType.Text = profile.AnimalType;
-            EditProfileRFID.Text = profile.DefaultPortionSize.ToString();
-            EditProfilePortion.Text = profile.RFID.ToString();
+            EditProfileRFID.Text =  profile.RFID.ToString();
+            EditProfilePortion.Text = profile.DefaultPortionSize.ToString();
 
         }
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            profile.AnimalName = EditProfileName.Text;
-            profile.AnimalType = EditAnimalType.Text;
-            profile.DefaultPortionSize = Convert.ToInt32(EditProfileRFID.Text);
-            profile.RFID = Convert.ToInt32(EditProfilePortion.Text);
+            if (String.IsNullOrEmpty(EditProfileName.Text))
+            {
+                await DisplayAlert("Leeg veld", "Voer een naam in", "OK");
+            }
+            else if (String.IsNullOrEmpty(EditAnimalType.Text))
+            {
+                await DisplayAlert("Leeg veld", "Voer een type dier in", "OK");
+            }
+            else if (String.IsNullOrEmpty(EditProfilePortion.Text))
+            {
+                await DisplayAlert("Leeg veld", "Voer een portiegrootte in", "OK");
+            }
+            else if (EditProfileRFID.Text == null || EditProfileRFID.Text == " ")
+            {
+                EditProfileRFID.Text = "0";
+            }
+            else
+            {
+                profile.AnimalName = EditProfileName.Text;
+                profile.AnimalType = EditAnimalType.Text;
+                profile.RFID = Convert.ToInt32(EditProfileRFID.Text);
+                profile.DefaultPortionSize = Convert.ToInt32(EditProfilePortion.Text);
 
-            databaseManager.UpdateProfile(profile);
+                databaseManager.UpdateProfile(profile);
+                await Navigation.PopToRootAsync();
+            }
+ 
+        }
+
+        private async void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            databaseManager.DeleteProfile(profile);
             await Navigation.PopToRootAsync();
         }
     }

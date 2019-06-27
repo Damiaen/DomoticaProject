@@ -71,7 +71,7 @@ namespace Domotica.Services
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
-                return null;    
+                return "0";    
             }
         }
 
