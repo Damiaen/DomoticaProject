@@ -72,3 +72,4 @@ C:\Projects\DomoticaProject\Domotica\Domotica\Domotica\obj\Debug\netstandard2.0\
 C:\SchoolProjects\DomoticaProject\Domotica\Domotica\Domotica\obj\Debug\netstandard2.0\Views\ProfileFeedtimesAddPage.xaml.g.cs
 C:\SchoolProjects\DomoticaProject\Domotica\Domotica\Domotica\obj\Debug\netstandard2.0\Views\ProfileFeedtimesEditPage.xaml.g.cs
 C:\Projects\DomoticaProject\Domotica\Domotica\Domotica\obj\Debug\netstandard2.0\Views\ProfileEditPagexaml.xaml.g.cs
+C:\SchoolProjects\DomoticaProject\Domotica\Domotica\Domotica\obj\Debug\netstandard2.0\Views\ProfileEditPagexaml.xaml.g.cs

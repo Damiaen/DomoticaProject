@@ -26,7 +26,7 @@ namespace Domotica
             MainPage = new MainPage();
         }
 
-        protected override async void OnStart()
+        protected override void OnStart()
         {
             // On start runs when your application launches from a closed state, 
 

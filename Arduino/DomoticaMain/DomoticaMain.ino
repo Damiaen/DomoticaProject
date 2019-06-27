@@ -34,8 +34,6 @@ void setup()
    }
    //Init I/O-pins
    pinMode(switchPin, INPUT);            // hardware switch, for changing pin state
-   pinMode(trigPin, OUTPUT);
-   pinMode(echoPin, INPUT);
    pinMode(RFPin, OUTPUT);
    pinMode(ledPin, OUTPUT);
       
@@ -62,8 +60,6 @@ void setup()
   }
    
    Serial.print(F("LED (for connect-state and pin-state) on pin ")); Serial.println(ledPin);
-   Serial.print(F("Input switch on pin ")); Serial.println(switchPin);
-   Serial.print(F("Ultrasonic sensor on pins: triggerPin -> ")); Serial.print(trigPin); Serial.print(F(" echoPin -> ")); Serial.println(switchPin);
    Serial.println(F("Ethernetboard connected (pins 10, 11, 12, 13 and SPI)"));
    Serial.println(F("Connect to DHCP source in local network (blinking led -> waiting for connection)"));
    
@@ -95,7 +91,7 @@ void loop()
       return; // wait for connection and blink LED
    }
    
-   Serial.println("Application connected");
+   Serial.println(F("Application connected"));
    digitalWrite(ledPin, LOW);
 
    // Do what needs to be done while the socket is connected.
@@ -130,7 +126,7 @@ void loop()
          }
       } 
    }
-   Serial.println("Application disonnected");
+   Serial.println(F("Application disonnected"));
 
 
 }
@@ -148,12 +144,12 @@ void executeCommand(char cmd)
          case 'a': // Report sensor value off sensor 1 to app  
             intToCharBuf(sensorValue, buf, 4);                // convert to charbuffer
             server.write(buf, 4);                             // response is always 4 chars (\n included)
-            Serial.print("Sensor: "); Serial.println(buf);
+            Serial.print(F("MainSensor: ")); Serial.println(buf);
             break;
-         case 'b': // Report sensor value off sensor 1 to app   
-            intToCharBuf(sensorValue, buf, 4);                // convert to charbuffer
+         case 'b': // Report sensor value off ultrasonic sensor to app   
+            intToCharBuf(ultrasonicValue, buf, 4);                // convert to charbuffer
             server.write(buf, 4);                             // response is always 4 chars (\n included)
-            Serial.print("Sensor: "); Serial.println(buf);
+            Serial.print(F("UltrasonicSensor: ")); Serial.println(buf);
             break;
          case 'c': 
               storeRfidToDatabase();   
@@ -218,7 +214,7 @@ void getRfidFromDatabase() {
     myFile.close();
   } else {
     // if the file didn't open, print an error:
-    Serial.println("error opening test.txt");
+    Serial.println(F("error opening test.txt"));
   }
 }
 
@@ -266,19 +262,6 @@ void blink(int pn)
   delay(1000);
 }
 
-// Visual feedback on pin, based on IP number, used for debug only
-// Blink ledpin for a short burst, then blink N times, where N is (related to) IP-number
-void signalNumber(int pin, int n)
-{
-   int i;
-   for (i = 0; i < 30; i++)
-       { digitalWrite(pin, HIGH); delay(20); digitalWrite(pin, LOW); delay(20); }
-   delay(1000);
-   for (i = 0; i < n; i++)
-       { digitalWrite(pin, HIGH); delay(300); digitalWrite(pin, LOW); delay(300); }
-    delay(1000);
-}
-
 void moveServo(int anmount) {
 
   for (int portions = 0; portions < anmount; portions++) {
@@ -298,10 +281,19 @@ void moveServo(int anmount) {
 // function that executes whenever data is received from master
 // this function is registered as an event, see setup()
 void receiveEvent(int howMany) {
+  char c;
+  int x;
+  
   while (1 < Wire.available()) { // loop through all but the last
-    char c = Wire.read(); // receive byte as a character
+    c = Wire.read(); // receive byte as a character
     Serial.print(c);         // print the character
   }
-  int x = Wire.read();    // receive byte as an integer
+  x = Wire.read();    // receive byte as an integer
   Serial.println(x);         // print the integer
+  if (c == "s") {
+    ultrasonicValue = x; 
+  }
+  if (c == "r") {
+    moveServo(x);
+  }
 }

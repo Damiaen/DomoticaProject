@@ -33,7 +33,7 @@ namespace Domotica.Services
         // Databasemanager to get stored ip configuration from database
         public DatabaseManager databaseManager = new DatabaseManager();
 
-        string[] sensors = new string[] { "a", "a", "a" };
+        string[] sensors = new string[] { "b", "b", "b" };
         string[] sensorsValues = new string[3];
         int count = 0;
     
@@ -71,7 +71,7 @@ namespace Domotica.Services
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
-                return null;
+                return null;    
             }
         }
 
@@ -120,7 +120,7 @@ namespace Domotica.Services
             }
         }
 
-        public void Receive(Socket client)
+        public async Task Receive(Socket client)
         {
             try
             {
@@ -131,6 +131,7 @@ namespace Domotica.Services
                 // Begin receiving the data from the remote device.  
                 client.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
                     new AsyncCallback(ReceiveCallback), state);
+                await Task.Delay(2000);
             }
             catch (Exception e)
             {
@@ -156,8 +157,6 @@ namespace Domotica.Services
                 response = state.sb.ToString();
                 Console.WriteLine(response);
 
-
-
             }
             catch (Exception e)
             {
@@ -173,11 +172,10 @@ namespace Domotica.Services
             // Begin sending the data to the remote device.  
             client.BeginSend(byteData, 0, byteData.Length, 0,
                 new AsyncCallback(SendCallback), client);
-
-            await Task.Delay(2000);
+            await Task.Delay(2500);
         }
 
-        public void SendCallback(IAsyncResult ar)
+        public async void SendCallback(IAsyncResult ar)
         {
             try
             {
@@ -189,7 +187,7 @@ namespace Domotica.Services
                 Console.WriteLine("Sent {0} bytes to server.", bytesSent);
 
                 // We do it here now...
-                Receive(client);
+                await Receive(client);
             }
             catch (Exception e)
             {

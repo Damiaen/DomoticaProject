@@ -112,10 +112,17 @@ int distanceAv()
   maxValue = 0;
   z = 0;
 
-   Wire.beginTransmission(8); // transmit to device #8
-  Wire.write("jghghgjffcchcgchcg");        // sends five bytes
+  Wire.beginTransmission(8); // transmit to device #8
+  Wire.write("s");            // sends five bytes
   Wire.write(avgDistance);
   Wire.endTransmission();    // stop transmitting
 
-  delay(4000);
+  delay(6000);
+}
+
+void sendRFID() {
+  Wire.beginTransmission(8); // transmit to device #8
+  Wire.write("r");           // sends five bytes
+  Wire.write(1);
+  Wire.endTransmission();    // stop transmitting
 }

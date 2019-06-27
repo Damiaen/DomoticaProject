@@ -19,21 +19,24 @@ namespace Domotica.Views
         public OverviewPage()
         {
             InitializeComponent();
-            // UpdateSensor();
+            UpdateSensor();
 
         }
 
         private async void UpdateSensor()
         {
-            string[] sensorArray = await connection.GetSensorValues() as string[];
-            string array = sensorArray[1];
-            DisplaySensorValue.Text = sensorArray[1];
+            string text = await connection.SingleAction("b");
+            int temp = 100 - (Int32.Parse(text) * 100) / 25;
+            DisplaySensorValue.Text = temp.ToString() + "%";
         }
 
-        async void ToolbarItem_Clicked(object sender, EventArgs e)
+        private async void UpdateSensorsManually_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new SettingsPage());
+            string text = await connection.SingleAction("b");
+            int temp = 100 - (Int32.Parse(text) * 100) / 25;
+            DisplaySensorValue.Text = temp.ToString() + "%";
         }
+
         private async void ThrowFood_Pressed(object sender, EventArgs e)
         {
             await connection.SingleAction("i");
@@ -56,5 +59,11 @@ namespace Domotica.Views
             UpdateSensor();
         }
 
+        private async void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            string text = await connection.SingleAction("b");
+            int temp = 100 - (Int32.Parse(text) * 100) / 24;
+            DisplaySensorValue.Text = temp.ToString() + "%";
+        }
     }
 }
