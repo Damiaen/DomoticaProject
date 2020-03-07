@@ -22,7 +22,7 @@
                     <TimePicker x:Name="timePicker"
                                 Time="12:00"
                                 Format="hh:mm"/>
-                    <Button Text="Add" HorizontalOptions="Center" Padding="2" Margin="0,16,0,0" WidthRequest="96" HeightRequest="32" Clicked="Button_Clicked"/>
+                    <Button Text="Updaten" HorizontalOptions="Center" Padding="2" Margin="0,16,0,0" HeightRequest="48" Clicked="Button_Clicked"/>
                 </StackLayout>
             </ScrollView>
         </StackLayout>

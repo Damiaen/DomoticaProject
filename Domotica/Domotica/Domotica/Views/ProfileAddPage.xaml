@@ -9,14 +9,14 @@
                 <StackLayout Orientation="Vertical">
                     <Label Text="Naam"/>
                     <Entry x:Name="ProfileName"/>
-                    <Label Text="Type dier (Optioneel)"/>
+                    <Label Text="Type dier"/>
                     <Entry x:Name="AnimalType"/>   
                     <Label Text="RFID (optioneel)"/>
                     <Entry x:Name="ProfileRFID"/>
                     <Label Text="Standaard portiegrootte"/>
                     <Entry x:Name="ProfilePortion"/>
 
-                    <Button Text="Add" HorizontalOptions="Center" Padding="2" Margin="0,16,0,0" WidthRequest="96" HeightRequest="32" Clicked="Button_Clicked"/>
+                    <Button Text="Toevoegen" HorizontalOptions="Center" Padding="2" Margin="0,16,0,0" HeightRequest="48" Clicked="Button_Clicked"/>
                 </StackLayout>
             </ScrollView>
         </StackLayout>

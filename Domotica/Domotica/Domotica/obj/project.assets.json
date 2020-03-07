@@ -479,11 +479,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\SchoolProjects\\DomoticaProject\\Domotica\\Domotica\\Domotica\\Domotica.csproj",
+      "projectUniqueName": "C:\\Projects\\DomoticaProject\\Domotica\\Domotica\\Domotica\\Domotica.csproj",
       "projectName": "Domotica",
-      "projectPath": "C:\\SchoolProjects\\DomoticaProject\\Domotica\\Domotica\\Domotica\\Domotica.csproj",
+      "projectPath": "C:\\Projects\\DomoticaProject\\Domotica\\Domotica\\Domotica\\Domotica.csproj",
       "packagesPath": "C:\\Users\\Damiaen\\.nuget\\packages\\",
-      "outputPath": "C:\\SchoolProjects\\DomoticaProject\\Domotica\\Domotica\\Domotica\\obj\\",
+      "outputPath": "C:\\Projects\\DomoticaProject\\Domotica\\Domotica\\Domotica\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
